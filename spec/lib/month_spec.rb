@@ -100,4 +100,35 @@ describe Month do
       Month.new(2010, 2).to_s.should == '2010/02'
     end
   end
+
+  describe "Kernel::Month()" do
+    it 'returns Month objects unchanged' do
+      month = Month.current
+      Kernel::Month(month).should == month
+      Kernel::Month(month).should eq month
+    end
+
+    it 'converts a date to its Month' do
+      Kernel::Month(Date.current).should == Month.current
+    end
+
+    it 'converts a time to its Month' do
+      Kernel::Month(Time.now).should == Month.current
+    end
+
+    it 'converts an object that has a date representation to the right Month' do
+      datish = double(:datish, to_date: Date.new(2001, 4))
+      Kernel::Month(datish).should == Month.new(2001, 4)
+    end
+
+    it 'raises for other inputs' do
+      expect {
+        pp Kernel::Month(0)
+      }.to raise_exception(ArgumentError)
+
+      expect {
+        pp Kernel::Month(nil)
+      }.to raise_exception(ArgumentError)
+    end
+  end
 end

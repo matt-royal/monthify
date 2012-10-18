@@ -59,3 +59,15 @@ class Month
     "%d/%02d" % [year, month]
   end
 end
+
+module Kernel
+  def Month(convertee)
+    if convertee.is_a?(Month)
+      convertee
+    elsif convertee.respond_to?(:to_date)
+      Month.containing(convertee.to_date)
+    else
+      raise ArgumentError, "Don't know how to convert #{convertee.inspect} to Month"
+    end
+  end
+end
