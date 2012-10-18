@@ -11,6 +11,10 @@ class Month
     new(today.year, today.month)
   end
 
+  def self.containing(dayish)
+    Month.new(dayish.year, dayish.month)
+  end
+
   def initialize(year, month)
     @year, @month = year, month
   end
@@ -29,6 +33,14 @@ class Month
 
   def last_second
     last_day.end_of_day
+  end
+
+  def previous
+    self.class.containing(first_day - 1.day)
+  end
+
+  def next
+    self.class.containing(last_day + 1.day)
   end
 
   def <=>(other)

@@ -9,6 +9,16 @@ describe Month do
     end
   end
 
+  describe '.containing' do
+    it 'returns the month containing the date' do
+      Month.containing(Date.new(2011, 1, 15)).should == Month.new(2011, 1)
+    end
+
+    it 'returns the month containing the time' do
+      Month.containing(Time.local(2012, 3, 15, 6, 9)).should == Month.new(2012, 3)
+    end
+  end
+
   describe "#initialize" do
     it 'sets month and year' do
       Month.new(2012,1).month.should == 1
@@ -40,6 +50,20 @@ describe Month do
     it 'is the time at the end of the last day of the month' do
       Month.new(2011, 7).last_second.usec.should == 999_999
       Month.new(2011, 7).last_second.should == Time.local(2011, 7, 31).end_of_day
+    end
+  end
+
+  describe "#next" do
+    it 'is the next month' do
+      Month.new(2011, 11).next.should == Month.new(2011, 12)
+      Month.new(2011, 12).next.should == Month.new(2012, 1)
+    end
+  end
+
+  describe "#previous" do
+    it 'is the previous month' do
+      Month.new(2011, 2).previous.should == Month.new(2011, 1)
+      Month.new(2011, 1).previous.should == Month.new(2010, 12)
     end
   end
 
