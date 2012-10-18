@@ -42,4 +42,32 @@ describe Month do
       Month.new(2011, 7).last_second.should == Time.local(2011, 7, 31).end_of_day
     end
   end
+
+  describe "comparison" do
+    let(:dec_2010) { Month.new(2010, 12) }
+    let(:jan_2011) { Month.new(2011, 1) }
+    let(:jan_2011_dup) { Month.new(2011, 1) }
+    let(:feb_2011) { Month.new(2011, 2) }
+
+    specify { jan_2011.should == jan_2011_dup }
+    specify { jan_2011.should_not == feb_2011 }
+    specify { jan_2011.should_not == Object.new }
+
+    specify { (jan_2011 <=> jan_2011_dup).should == 0 }
+    specify { (jan_2011 <=> dec_2010).should == 1 }
+    specify { (jan_2011 <=> feb_2011).should == -1 }
+
+    specify { jan_2011.should be > dec_2010 }
+    specify { jan_2011.should be < feb_2011 }
+  end
+
+  describe "#hash" do
+    it 'is the same for two equal months' do
+      Month.new(2010, 3).hash.should == Month.new(2010, 3).hash
+    end
+
+    it 'is different for two different months' do
+      Month.new(2010, 3).hash.should_not == Month.new(2000, 1).hash
+    end
+  end
 end

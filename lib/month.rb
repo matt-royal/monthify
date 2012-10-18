@@ -2,6 +2,8 @@ require "month/version"
 require "active_support/core_ext"
 
 class Month
+  include Comparable
+
   attr_reader :month, :year
 
   def self.current
@@ -27,5 +29,17 @@ class Month
 
   def last_second
     last_day.end_of_day
+  end
+
+  def <=>(other)
+    if year == other.year
+      month <=> other.month
+    else
+      year <=> other.year
+    end
+  end
+
+  def hash
+    [self.class, year, month].hash
   end
 end
