@@ -21,4 +21,18 @@ describe Month do
       Month.new(2011, 2).last_day.should == Date.new(2011, 2, 28)
     end
   end
+
+
+  describe "#first_second" do
+    it 'is the time at the start of the first day of the month' do
+      Month.new(2011, 7).first_second.should == Time.local(2011, 7, 1, 0, 0, 0, 0)
+    end
+  end
+
+  describe "#last_second" do
+    it 'is the time at the end of the last day of the month' do
+      Month.new(2011, 7).last_second.usec.should == 999_999
+      Month.new(2011, 7).last_second.should == Time.local(2011, 7, 31).end_of_day
+    end
+  end
 end

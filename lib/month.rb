@@ -15,4 +15,12 @@ class Month
   def last_day
     first_day.end_of_month
   end
+
+  def first_second
+    first_day.beginning_of_day
+  end
+
+  def last_second
+    last_day.end_of_day
+  end
 end
