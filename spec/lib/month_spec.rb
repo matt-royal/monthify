@@ -94,4 +94,10 @@ describe Month do
       Month.new(2010, 3).hash.should_not == Month.new(2000, 1).hash
     end
   end
+
+  describe "#to_s" do
+    it 'is in the format YYYY/MM' do
+      Month.new(2010, 2).to_s.should == '2010/02'
+    end
+  end
 end

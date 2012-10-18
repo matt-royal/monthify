@@ -54,4 +54,8 @@ class Month
   def hash
     [self.class, year, month].hash
   end
+
+  def to_s
+    "%d/%02d" % [year, month]
+  end
 end
