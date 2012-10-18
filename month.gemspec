@@ -8,9 +8,9 @@ Gem::Specification.new do |gem|
   gem.version       = Month::VERSION
   gem.authors       = ["Matt Royal"]
   gem.email         = ["mroyal@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{The missing Month class every project ends up needing}
+  gem.summary       = %q{}
+  gem.homepage      = "https://github.com/matt-royal/month"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
