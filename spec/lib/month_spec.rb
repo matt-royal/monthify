@@ -2,6 +2,13 @@ require 'spec_helper'
 require 'month'
 
 describe Month do
+  describe '.current' do
+    it 'is the current month' do
+      Month.current.month.should == Date.current.month
+      Month.current.year.should == Date.current.year
+    end
+  end
+
   describe "#initialize" do
     it 'sets month and year' do
       Month.new(2012,1).month.should == 1

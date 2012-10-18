@@ -4,6 +4,11 @@ require "active_support/core_ext"
 class Month
   attr_reader :month, :year
 
+  def self.current
+    today = Date.current
+    new(today.year, today.month)
+  end
+
   def initialize(year, month)
     @year, @month = year, month
   end
