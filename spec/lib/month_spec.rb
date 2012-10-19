@@ -19,7 +19,7 @@ describe Month do
     end
   end
 
-  context 'serialization' do
+  context 'serialization:' do
     describe '.load' do
       it 'converts a date to a Month' do
         Month.load(Date.new(2011, 5, 22)).should == Month.new(2011, 5)
@@ -100,70 +100,107 @@ describe Month do
 
   describe "#contains?" do
     let(:month) { Month.new(2012, 6) }
+    subject { month.contains?(datish) }
 
-    context 'with a Date' do
-      let(:date_in_month) { Date.new(2012, 6, 7) }
-      let(:date_in_another_month) { Date.new(2012, 7, 1) }
-
-      specify { month.contains?(date_in_month).should == true }
-      specify { month.contains?(date_in_another_month).should == false }
+    context 'with a Date in the month' do
+      let(:datish) { Date.new(2012, 6, 7) }
+      it { should == true }
     end
 
-    context 'with a Time' do
-      let(:time_in_month) { Time.local(2012, 6, 7, 12, 30) }
-      let(:time_in_another_month) { Time.local(2012, 7, 1, 0, 0) }
-
-      specify { month.contains?(time_in_month).should == true }
-      specify { month.contains?(time_in_another_month).should == false }
+    context 'with a Date in another month' do
+      let(:datish) { Date.new(2012, 7, 1) }
+      it { should == false }
     end
 
-    context 'with an object that converts to a date' do
-      let(:datish_in_month) {
+    context 'with a Time in the month' do
+      let(:datish) { Time.local(2012, 6, 7, 12, 30) }
+      it { should == true }
+    end
+
+    context 'with a Time in another month' do
+      let(:datish) { Time.local(2012, 7, 1, 0, 0) }
+      it { should == false }
+    end
+
+    context 'with an object that has a #to_date in the month' do
+      let(:datish) {
         double(:datish_in_month, to_date: Date.new(2012, 6, 7))
       }
-      let(:datish_in_another_month) {
+      it { should == true }
+    end
+
+    context 'with an object that has a #to_date in another month' do
+      let(:datish) {
         double(:datish_in_another_month, to_date: Date.new(2012, 7, 1))
       }
 
-      specify { month.contains?(datish_in_month).should == true }
-      specify { month.contains?(datish_in_another_month).should == false }
+      it { should == false }
     end
   end
 
-  describe "comparison" do
+  describe "comparison:" do
     let(:dec_2010) { Month.new(2010, 12) }
     let(:jan_2011) { Month.new(2011, 1) }
     let(:jan_2011_dup) { Month.new(2011, 1) }
     let(:feb_2011) { Month.new(2011, 2) }
 
-    specify { jan_2011.should == jan_2011_dup }
-    specify { jan_2011.should_not == feb_2011 }
-    specify { jan_2011.should_not == Object.new }
+    describe "==" do
+      it 'is true for two copies of the same month' do
+        jan_2011.should == jan_2011_dup
+      end
+      it 'is false for a different month' do
+        jan_2011.should_not == feb_2011
+      end
+      it 'is false for a non-month' do
+        jan_2011.should_not == Object.new
+      end
+    end
 
-    specify { (jan_2011 <=> jan_2011_dup).should == 0 }
-    specify { (jan_2011 <=> dec_2010).should == 1 }
-    specify { (jan_2011 <=> feb_2011).should == -1 }
+    describe '<=>' do
+      it 'is 0 for the same month' do
+        (jan_2011 <=> jan_2011_dup).should == 0
+      end
 
-    specify { jan_2011.should be > dec_2010 }
-    specify { jan_2011.should be < feb_2011 }
+      it 'is 1 for an earlier month' do
+        (jan_2011 <=> dec_2010).should == 1
+      end
+
+      it 'is -1 for a later month' do
+        (jan_2011 <=> feb_2011).should == -1
+      end
+    end
+
+    it 'is Comparable' do
+      Month.current.should be_a(Comparable)
+    end
   end
 
   describe "+" do
     let(:month) { Month.new(2012, 8) }
 
-    specify { (month + 1.month).should == month.next }
-    specify { (month + 6.months).should == Month.new(2013, 2) }
-    specify { (month + 1.year).should == Month.new(2013, 8) }
-    specify { (month + 50.years).should == Month.new(2062, 8) }
+    it 'correctly adds month durations' do
+      (month + 1.month).should == month.next
+      (month + 6.months).should == Month.new(2013, 2)
+    end
+
+    it 'correctly adds year durations' do
+      (month + 1.year).should == Month.new(2013, 8)
+      (month + 50.years).should == Month.new(2062, 8)
+    end
   end
 
   describe "-" do
     let(:month) { Month.new(2012, 8) }
 
-    specify { (month - 1.month).should == month.previous }
-    specify { (month - 6.months).should == Month.new(2012, 2) }
-    specify { (month - 1.year).should == Month.new(2011, 8) }
-    specify { (month - 50.years).should == Month.new(1962, 8) }
+    it 'correctly subtracts month durations' do
+      (month - 1.month).should == month.previous
+      (month - 6.months).should == Month.new(2012, 2)
+    end
+
+    it 'correctly subtracts year durations' do
+      (month - 1.year).should == Month.new(2011, 8)
+      (month - 50.years).should == Month.new(1962, 8)
+    end
   end
 
   describe "#hash" do
