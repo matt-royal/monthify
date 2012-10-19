@@ -1,5 +1,6 @@
 require "month/version"
 require "active_support/core_ext"
+require "month/core_ext/object"
 
 class Month
   include Comparable
