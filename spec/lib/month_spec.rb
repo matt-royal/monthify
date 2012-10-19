@@ -117,6 +117,24 @@ describe Month do
     specify { jan_2011.should be < feb_2011 }
   end
 
+  describe "+" do
+    let(:month) { Month.new(2012, 8) }
+
+    specify { (month + 1.month).should == month.next }
+    specify { (month + 6.months).should == Month.new(2013, 2) }
+    specify { (month + 1.year).should == Month.new(2013, 8) }
+    specify { (month + 50.years).should == Month.new(2062, 8) }
+  end
+
+  describe "-" do
+    let(:month) { Month.new(2012, 8) }
+
+    specify { (month - 1.month).should == month.previous }
+    specify { (month - 6.months).should == Month.new(2012, 2) }
+    specify { (month - 1.year).should == Month.new(2011, 8) }
+    specify { (month - 50.years).should == Month.new(1962, 8) }
+  end
+
   describe "#hash" do
     it 'is the same for two equal months' do
       Month.new(2010, 3).hash.should == Month.new(2010, 3).hash

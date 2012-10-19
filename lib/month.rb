@@ -48,6 +48,14 @@ class Month
     year == date.year && month == date.month
   end
 
+  def +(duration)
+    Month.containing(first_day + duration)
+  end
+
+  def -(duration)
+    Month.containing(first_day - duration)
+  end
+
   def <=>(other)
     if year == other.year
       month <=> other.month
