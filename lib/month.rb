@@ -44,6 +44,14 @@ class Month
     self + 1.month
   end
 
+  def date_range
+    Range.new(first_day, last_day)
+  end
+
+  def time_range
+    Range.new(first_moment, last_moment)
+  end
+
   def contains?(datish)
     date = datish.to_date
     year == date.year && month == date.month

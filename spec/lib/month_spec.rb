@@ -67,6 +67,22 @@ describe Month do
     end
   end
 
+  describe "#date_range" do
+    let(:month) { Month.new(2011, 3) }
+
+    it 'is the range of days in the month' do
+      month.date_range.should == Range.new(month.first_day, month.last_day)
+    end
+  end
+
+  describe "#time_range" do
+    let(:month) { Month.new(2011, 3) }
+
+    it 'is the range of times from the start to the end of the month' do
+      Month.new(2011, 3).time_range.should == Range.new(month.first_moment, month.last_moment)
+    end
+  end
+
   describe "#contains?" do
     let(:month) { Month.new(2012, 6) }
 
