@@ -36,11 +36,11 @@ class Month
   end
 
   def previous
-    self.class.containing(first_day - 1.day)
+    self - 1.month
   end
 
   def next
-    self.class.containing(last_day + 1.day)
+    self + 1.month
   end
 
   def contains?(datish)
