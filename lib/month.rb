@@ -16,12 +16,13 @@ class Month
     Month.new(datish.year, datish.month)
   end
 
-  def self.load(date)
+  def self.load(date_yaml)
+    date = YAML.load(date_yaml)
     Month.containing(date)
   end
 
   def self.dump(month)
-    month.first_day
+    YAML.dump(month.first_day)
   end
 
   def initialize(year, month)

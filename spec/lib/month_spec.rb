@@ -21,14 +21,15 @@ describe Month do
 
   context 'serialization:' do
     describe '.load' do
-      it 'converts a date to a Month' do
-        Month.load(Date.new(2011, 5, 22)).should == Month.new(2011, 5)
+      it 'converts date YAML into a Month' do
+        date_yaml = YAML.dump(Date.new(2011, 5, 22))
+        Month.load(date_yaml).should == Month.new(2011, 5)
       end
     end
 
     describe '.dump' do
-      it 'converts a Month to its first day' do
-        Month.dump(Month.new(2013, 8)).should == Date.new(2013, 8, 1)
+      it 'converts a Month to the YAML representation of its first day' do
+        Month.dump(Month.new(2013, 8)).should == YAML.dump(Date.new(2013, 8, 1))
       end
     end
 
