@@ -43,6 +43,11 @@ class Month
     self.class.containing(last_day + 1.day)
   end
 
+  def contains?(datish)
+    date = datish.to_date
+    year == date.year && month == date.month
+  end
+
   def <=>(other)
     if year == other.year
       month <=> other.month

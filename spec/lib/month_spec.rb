@@ -67,6 +67,38 @@ describe Month do
     end
   end
 
+  describe "#contains?" do
+    let(:month) { Month.new(2012, 6) }
+
+    context 'with a Date' do
+      let(:date_in_month) { Date.new(2012, 6, 7) }
+      let(:date_in_another_month) { Date.new(2012, 7, 1) }
+
+      specify { month.contains?(date_in_month).should == true }
+      specify { month.contains?(date_in_another_month).should == false }
+    end
+
+    context 'with a Time' do
+      let(:time_in_month) { Time.local(2012, 6, 7, 12, 30) }
+      let(:time_in_another_month) { Time.local(2012, 7, 1, 0, 0) }
+
+      specify { month.contains?(time_in_month).should == true }
+      specify { month.contains?(time_in_another_month).should == false }
+    end
+
+    context 'with an object that converts to a date' do
+      let(:datish_in_month) {
+        double(:datish_in_month, to_date: Date.new(2012, 6, 7))
+      }
+      let(:datish_in_another_month) {
+        double(:datish_in_another_month, to_date: Date.new(2012, 7, 1))
+      }
+
+      specify { month.contains?(datish_in_month).should == true }
+      specify { month.contains?(datish_in_another_month).should == false }
+    end
+  end
+
   describe "comparison" do
     let(:dec_2010) { Month.new(2010, 12) }
     let(:jan_2011) { Month.new(2011, 1) }
