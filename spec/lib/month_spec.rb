@@ -19,6 +19,21 @@ describe Month do
     end
   end
 
+  context 'serialization' do
+    describe '.load' do
+      it 'converts a date to a Month' do
+        Month.load(Date.new(2011, 5, 22)).should == Month.new(2011, 5)
+      end
+    end
+
+    describe '.dump' do
+      it 'converts a Month to its first day' do
+        Month.dump(Month.new(2013, 8)).should == Date.new(2013, 8, 1)
+      end
+    end
+
+  end
+
   describe "#initialize" do
     it 'sets month and year' do
       Month.new(2012,1).month.should == 1
