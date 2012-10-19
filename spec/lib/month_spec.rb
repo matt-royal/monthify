@@ -40,16 +40,16 @@ describe Month do
   end
 
 
-  describe "#first_second" do
+  describe "#first_moment" do
     it 'is the time at the start of the first day of the month' do
-      Month.new(2011, 7).first_second.should == Time.local(2011, 7, 1, 0, 0, 0, 0)
+      Month.new(2011, 7).first_moment.should == Time.local(2011, 7, 1, 0, 0, 0, 0)
     end
   end
 
-  describe "#last_second" do
+  describe "#last_moment" do
     it 'is the time at the end of the last day of the month' do
-      Month.new(2011, 7).last_second.usec.should == 999_999
-      Month.new(2011, 7).last_second.should == Time.local(2011, 7, 31).end_of_day
+      Month.new(2011, 7).last_moment.usec.should == 999_999
+      Month.new(2011, 7).last_moment.should == Time.local(2011, 7, 31).end_of_day
     end
   end
 

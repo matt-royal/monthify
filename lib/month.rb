@@ -27,11 +27,11 @@ class Month
     first_day.end_of_month
   end
 
-  def first_second
+  def first_moment
     first_day.beginning_of_day
   end
 
-  def last_second
+  def last_moment
     last_day.end_of_day
   end
 
