@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'month'
+require 'monthify'
 
 describe Month do
   describe '.current' do
@@ -242,11 +242,11 @@ describe Month do
 
     it 'raises for other inputs' do
       expect {
-        pp Kernel::Month(0)
+        Kernel::Month(0)
       }.to raise_exception(ArgumentError)
 
       expect {
-        pp Kernel::Month(nil)
+        Kernel::Month(nil)
       }.to raise_exception(ArgumentError)
     end
   end

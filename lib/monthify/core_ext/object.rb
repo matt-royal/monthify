@@ -1,13 +1,13 @@
-class Month
+module Monthify
   module CoreExt
     module Object
       def to_month
-        Kernel::Month(self)
+        ::Kernel::Month(self)
       end
     end
   end
 end
 
 class ::Object
-  include Month::CoreExt::Object
+  include Monthify::CoreExt::Object
 end
