@@ -69,6 +69,7 @@ module Monthify
     def next
       self + 1.month
     end
+    alias :succ :next
 
     #@return [Range<Date, Date>] the range of dates in this month
     def date_range

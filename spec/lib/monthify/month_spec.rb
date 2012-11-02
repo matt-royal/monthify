@@ -176,6 +176,15 @@ describe Month do
     end
   end
 
+  it 'can be used in a Range' do
+    range = Month.new(1980, 5)..Month.new(1980, 7)
+    range.to_a.should == [
+      Month.new(1980, 5),
+      Month.new(1980, 6),
+      Month.new(1980, 7)
+    ]
+  end
+
   describe "+" do
     let(:month) { Month.new(2012, 8) }
 
