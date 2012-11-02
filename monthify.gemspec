@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = Monthify::VERSION
   gem.authors       = ["Matt Royal"]
   gem.email         = ["mroyal@gmail.com"]
-  gem.description   = %q{The missing Month class every project ends up needing}
+  gem.description   = %q{The missing Month class}
   gem.summary       = %q{}
   gem.homepage      = "https://github.com/matt-royal/monthify"
 
