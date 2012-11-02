@@ -12,6 +12,16 @@ module Monthify
       new(today.year, today.month)
     end
 
+    #@return [Month] the month after the current month
+    def self.next
+      current.next
+    end
+
+    #@return [Month] the month before the current month
+    def self.previous
+      current.previous
+    end
+
     #@param [Date, Time, #to_date] datish
     #@return [Month] the month containing the given date
     def self.containing(datish)

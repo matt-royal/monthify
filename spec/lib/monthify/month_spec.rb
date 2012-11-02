@@ -9,6 +9,18 @@ describe Month do
     end
   end
 
+  describe '.next' do
+    it 'is the month after the current month' do
+      Month.next.should == Month.current.next
+    end
+  end
+
+  describe '.previous' do
+    it 'is the month before the current month' do
+      Month.previous.should == Month.current.previous
+    end
+  end
+
   describe '.containing' do
     it 'returns the month containing the date' do
       Month.containing(Date.new(2011, 1, 15)).should == Month.new(2011, 1)
