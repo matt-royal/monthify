@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'monthify'
 
-describe Month do
+describe Monthify::Month do
   describe '.current' do
     it 'is the current month' do
       Month.current.month.should == Date.current.month
@@ -44,7 +44,6 @@ describe Month do
         Month.dump(Month.new(2013, 8)).should == YAML.dump(Date.new(2013, 8, 1))
       end
     end
-
   end
 
   describe "#initialize" do
@@ -66,7 +65,6 @@ describe Month do
       Month.new(2011, 2).last_day.should == Date.new(2011, 2, 28)
     end
   end
-
 
   describe "#first_moment" do
     it 'is the time at the start of the first day of the month' do
@@ -107,7 +105,10 @@ describe Month do
     let(:month) { Month.new(2011, 3) }
 
     it 'is the range of times from the start to the end of the month' do
-      Month.new(2011, 3).time_range.should == Range.new(month.first_moment, month.last_moment)
+      time_range = Month.new(2011, 3).time_range
+      time_range.should be_a(Range)
+      time_range.first.should == month.first_moment
+      time_range.last.should == month.last_moment
     end
   end
 

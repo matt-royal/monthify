@@ -1,10 +1,8 @@
 require "active_support/core_ext"
 
 module Monthify
-  class Month
+  class Month < TimeRange
     include Comparable
-
-    attr_reader :month, :year
 
     #@return [Month] the current month
     def self.current
@@ -47,27 +45,17 @@ module Monthify
     #@param [Integer] month the number of the month
     #@return [Month]
     def initialize(year, month)
-      @year, @month = year, month
+      first_moment = Date.new(year, month, 1).to_time.beginning_of_month
+      last_moment = first_moment.end_of_month
+      super(first_moment, last_moment)
     end
 
-    #@return [Date] the first day of the month
-    def first_day
-      Date.new(year, month, 1)
+    def year
+      first_day.year
     end
 
-    #@return [Date] the last day of the month
-    def last_day
-      first_day.end_of_month
-    end
-
-    #@return [Time] the very beginning of the month
-    def first_moment
-      first_day.beginning_of_day
-    end
-
-    #@return [Time] the very end of the month
-    def last_moment
-      last_day.end_of_day
+    def month
+      first_day.month
     end
 
     #@return [Month] the month preceeding this one
@@ -81,14 +69,9 @@ module Monthify
     end
     alias :succ :next
 
-    #@return [Range<Date, Date>] the range of dates in this month
-    def date_range
-      Range.new(first_day, last_day)
-    end
-
     #@return [Range<Time, Time>] the range of time in this month
     def time_range
-      Range.new(first_moment, last_moment)
+      self
     end
 
     #@param [Date, Time, #to_date] datish
@@ -122,14 +105,10 @@ module Monthify
     end
 
     #@!visibility private
-    def hash
-      [self.class, year, month].hash
-    end
-
-    #@!visibility private
     def to_s
       "%d/%02d" % [year, month]
     end
+    alias :inspect :to_s
   end
 end
 
