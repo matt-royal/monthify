@@ -4,6 +4,8 @@ module Monthify
   class Month
     include Comparable
 
+    alias :eql? :==
+
     attr_reader :month, :year
 
     #@return [Month] the current month

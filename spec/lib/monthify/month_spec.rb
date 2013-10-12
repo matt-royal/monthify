@@ -271,4 +271,12 @@ describe Month do
       }.to raise_exception(ArgumentError)
     end
   end
+
+  it 'can be grouped' do
+    dates = Date.new(2010, 1, 1) .. Date.new(2010, 2, 28)
+    dates_grouped_by_month = dates.group_by{|date| Month.containing date}
+    dates_grouped_by_month.count.should == 2
+    dates_grouped_by_month[Month.new(2010, 1)].should include Date.new(2010, 1, 15)
+    dates_grouped_by_month[Month.new(2010, 2)].should include Date.new(2010, 2, 15)
+  end
 end
